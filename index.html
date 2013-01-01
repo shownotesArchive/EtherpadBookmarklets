@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Etherpadbookmarklets : Eine Sammlung an Bookmarklets für Etherpads" />
+    <meta name="description" content="EtherpadBookmarklets : Eine Sammlung an Bookmarklets für Etherpads" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Etherpadbookmarklets</title>
+    <title>EtherpadBookmarklets</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/shownotes/EtherpadBookmarklets">View on GitHub</a>
 
-          <h1 id="project_title">Etherpadbookmarklets</h1>
+          <h1 id="project_title">EtherpadBookmarklets</h1>
           <h2 id="project_tagline">Eine Sammlung an Bookmarklets für Etherpads</h2>
 
             <section id="downloads">
@@ -37,17 +37,21 @@
 
 <ul>
 <li>
-<a href="javascript:(function(){function insertTS(){var padlines=padeditor.ace.exportText().split('\n');var timestamp=Math.round(new Date().getTime()/1000);for(var i = 0; i<padlines.length; i++){if(padlines[i].indexOf('###') == 0){padeditor.ace.replaceRange([i,0], [i,3], ''+timestamp);console.log(i);}}window.setTimeout(insertTS, 1000);}insertTS();})()">Insert Timestamp</a>: Dieses Bookmarklet ändert alle <code>###</code> am Anfang von Zeilen innerhalb des Pads zum aktuellen UNIX-Timestamp</li>
+<a>Insert Timestamp</a>: Dieses Bookmarklet ändert alle <code>###</code> am Anfang von Zeilen innerhalb des Pads zum aktuellen UNIX-Timestamp</li>
 <li>
-<a href="javascript:(function(){var padcontent=padeditor.ace.exportText();function post_to_url(path,params){var form=cpWindow.document.createElement('form');form.setAttribute('method','post');form.setAttribute('action',path);for(var key in params){if(params.hasOwnProperty(key)){var hiddenField = document.createElement('input');hiddenField.setAttribute('type','hidden');hiddenField.setAttribute('name',key);hiddenField.setAttribute('value',params[key]);form.appendChild(hiddenField);}}cpWindow.document.body.appendChild(form);form.submit();}cpWindow = window.open('about:blank');post_to_url('http://cdn.simon.waldherr.eu/projects/osf-parser-suite/api/', {'amazon':'shownot.es-21','thomann':'93439','fullmode':1, 'pad':padcontent, 'download':1,'exportmode':'chapter'});})()">Export Chapter</a>: Ein Klick auf dieses Bookmarklet überträgt den Padinhalt zum OSF-Parser wo der Inhalt zu Chapters gewandelt werden</li>
-</ul>
+<a>Export Chapter</a>: Ein Klick auf dieses Bookmarklet überträgt den Padinhalt zum OSF-Parser wo der Inhalt zu Chapters gewandelt werden</li>
+<li>
+<a>Export HTML</a>: Ein Klick auf dieses Bookmarklet überträgt den Padinhalt zum OSF-Parser wo der Inhalt zu HTML (im Anyca.st-Format) gewandelt werden</li>
+<li>
+<a>Open with Parser</a>: Ein Klick auf dieses Bookmarklet öffnet den OSF-Parser und fügt den Pad-Inhalt ein</li>
+</ul><p>Bookmarklets werden bei den meisten Browsern einfach durch verschieben des Links in die Bookmarkleiste/Lesezeichenleiste gespeichert. Bei Problemen einfach im IRC oder auf Twitter (<a href="http://twitter.com/dieshownotes">@DieShownotes</a>) nachfragen.</p>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Etherpadbookmarklets maintained by <a href="https://github.com/shownotes">shownotes</a></p>
+        <p class="copyright">EtherpadBookmarklets maintained by <a href="https://github.com/shownotes">shownotes</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
