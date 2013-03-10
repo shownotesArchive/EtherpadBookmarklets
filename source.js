@@ -18,16 +18,16 @@
 //convert every second ### to current time in HH:MM:SS format
 (function () {
     var currentTime = new Date();
-    var startDMY = prompt("Enter your Start-Day", currentTime.getDate()+'.'+(currentTime.getMonth()+1)+'.'+currentTime.getFullYear()).split('.');
-    var startHMS = prompt("Enter your Start-Time", currentTime.getHours()+':'+currentTime.getMinutes()+':'+currentTime.getSeconds()).split(':');
-    var starttime = new Date(startDMY[2], (startDMY[1]-1), startDMY[0], startHMS[0], startHMS[1], startHMS[2], 0);
+    var startDMY = prompt("Enter your Start-Day", currentTime.getDate() + '.' + (currentTime.getMonth() + 1) + '.' + currentTime.getFullYear()).split('.');
+    var startHMS = prompt("Enter your Start-Time", currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds()).split(':');
+    var starttime = new Date(startDMY[2], (startDMY[1] - 1), startDMY[0], startHMS[0], startHMS[1], startHMS[2], 0);
     var starttimestamp = Math.round(starttime.getTime() / 1000);
 
     function calculateTime(now) {
         var time = parseInt(now) - parseInt(starttimestamp),
             date, hours, minutes, seconds, returntime = '';
 
-            console.log(time+' '+now+' '+starttimestamp);
+        console.log(time + ' ' + now + ' ' + starttimestamp);
 
         hours = Math.floor(time / 3600);
         minutes = Math.floor((time - (hours * 3600)) / 60);
