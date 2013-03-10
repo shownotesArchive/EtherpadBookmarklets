@@ -1,11 +1,11 @@
 //convert every second ### to Timestamps
-(function () {
+javascript:(function () {
     function insertTS() {
         var padlines = padeditor.ace.exportText().split('\n'),
             timestamp = Math.round(new Date().getTime() / 1000),
             i = 0;
-        for (var i = 0; i < padlines.length; i++) {
-            if (padlines[i].indexOf('###') == 0) {
+        for (i = 0; i < padlines.length; i++) {
+            if (padlines[i].indexOf('###') === 0) {
                 padeditor.ace.replaceRange([i, 0], [i, 3], '' + timestamp);
                 console.log(i);
             }
@@ -13,21 +13,21 @@
         window.setTimeout(insertTS, 1000);
     }
     insertTS();
-})()
+})();
 
 //convert every second ### to current time in HH:MM:SS format
-(function () {
+javascript:(function () {
     var currentTime = new Date();
-    var startDMY = prompt("Enter your Start-Day", currentTime.getDate()+'.'+(currentTime.getMonth()+1)+'.'+currentTime.getFullYear()).split('.');
-    var startHMS = prompt("Enter your Start-Time", currentTime.getHours()+':'+currentTime.getMinutes()+':'+currentTime.getSeconds()).split(':');
-    var starttime = new Date(startDMY[2], (startDMY[1]-1), startDMY[0], startHMS[0], startHMS[1], startHMS[2], 0);
+    var startDMY = prompt('Enter your Start-Day', currentTime.getDate() + '.' + (currentTime.getMonth() + 1) + '.' + currentTime.getFullYear()).split('.');
+    var startHMS = prompt('Enter your Start-Time', currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds()).split(':');
+    var starttime = new Date(startDMY[2], (startDMY[1] - 1), startDMY[0], startHMS[0], startHMS[1], startHMS[2], 0);
     var starttimestamp = Math.round(starttime.getTime() / 1000);
 
     function calculateTime(now) {
-        var time = parseInt(now) - parseInt(starttimestamp),
+        var time = parseInt(now, 10) - parseInt(starttimestamp, 10),
             date, hours, minutes, seconds, returntime = '';
 
-            console.log(time+' '+now+' '+starttimestamp);
+        console.log(time + ' ' + now + ' ' + starttimestamp);
 
         hours = Math.floor(time / 3600);
         minutes = Math.floor((time - (hours * 3600)) / 60);
@@ -44,8 +44,8 @@
         var padlines = padeditor.ace.exportText().split('\n'),
             timestamp = Math.round(new Date().getTime() / 1000),
             i = 0;
-        for (var i = 0; i < padlines.length; i++) {
-            if (padlines[i].indexOf('###') == 0) {
+        for (i = 0; i < padlines.length; i++) {
+            if (padlines[i].indexOf('###') === 0) {
                 padeditor.ace.replaceRange([i, 0], [i, 3], '' + calculateTime(timestamp));
                 console.log(i);
             }
@@ -53,12 +53,12 @@
         window.setTimeout(insertHMS, 750, starttimestamp);
     }
     insertHMS(starttimestamp);
-})()
+})();
 
 //change Timestamps to HH:MM:SS
-(function () {
+javascript:(function () {
     function calculateTime(starttime, now) {
-        var time = parseInt(now) - parseInt(starttime),
+        var time = parseInt(now, 10) - parseInt(starttime, 10),
             date, hours, minutes, seconds, returntime = '';
 
         hours = Math.floor(time / 3600);
@@ -76,15 +76,15 @@
         starttime = false,
         timestamp, newtime;
 
-    for (var i = 0; i < padlines.length; i++) {
+    for (i = 0; i < padlines.length; i++) {
         if (starttime === false) {
-            if (padlines[i].substr(10, 1) == ' ') {
+            if (padlines[i].substr(10, 1) === ' ') {
                 if (isNaN(parseInt(padlines[i].substr(0, 10), 10)) === false) {
-                    starttime = prompt("Enter your Start-Timestamp", padlines[i].substr(0, 10));
+                    starttime = prompt('Enter your Start-Timestamp', padlines[i].substr(0, 10));
                 }
             }
         } else {
-            if (padlines[i].substr(10, 1) == ' ') {
+            if (padlines[i].substr(10, 1) === ' ') {
                 timestamp = padlines[i].substr(0, 10);
                 if (isNaN(parseInt(timestamp, 10)) === false) {
                     newtime = calculateTime(starttime, timestamp);
@@ -94,10 +94,10 @@
             }
         }
     }
-})()
+})();
 
 //export Pad to chapter file
-(function () {
+javascript:(function () {
     var padcontent = padeditor.ace.exportText();
 
     function post_to_url(path, params) {
@@ -126,10 +126,10 @@
         'download': 1,
         'exportmode': 'chapter'
     });
-})()
+})();
 
 //export Pad to anycast-full style HTML
-(function () {
+javascript:(function () {
     var padcontent = padeditor.ace.exportText();
 
     function post_to_url(path, params) {
@@ -158,10 +158,10 @@
         'download': 1,
         'exportmode': 'anycast-full'
     });
-})()
+})();
 
 //open Pad in Parser
-(function () {
+javascript:(function () {
     var padcontent = padeditor.ace.exportText();
 
     function post_to_url(path, params) {
@@ -185,4 +185,4 @@
     post_to_url('http://tools.shownot.es/parser/', {
         'padcontent': padcontent
     });
-})()
+})();
