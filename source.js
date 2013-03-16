@@ -1,11 +1,11 @@
-//convert every second ### to Timestamps
+//convert every second ###%20 to Timestamps
 javascript:(function () {
     function insertTS() {
         var padlines = padeditor.ace.exportText().split('\n'),
             timestamp = Math.round(new Date().getTime() / 1000),
             i = 0;
         for (i = 0; i < padlines.length; i++) {
-            if (padlines[i].indexOf('###') === 0) {
+            if (padlines[i].indexOf('###%20') === 0) {
                 padeditor.ace.replaceRange([i, 0], [i, 3], '' + timestamp);
                 console.log(i);
             }
@@ -15,7 +15,7 @@ javascript:(function () {
     insertTS();
 })();
 
-//convert every second ### to current time in HH:MM:SS format
+//convert every second ###%20 to current time in HH:MM:SS format
 javascript:(function () {
     var currentTime = new Date();
     var startDMY = prompt('Enter your Start-Day', currentTime.getDate() + '.' + (currentTime.getMonth() + 1) + '.' + currentTime.getFullYear()).split('.');
@@ -45,7 +45,7 @@ javascript:(function () {
             timestamp = Math.round(new Date().getTime() / 1000),
             i = 0;
         for (i = 0; i < padlines.length; i++) {
-            if (padlines[i].indexOf('###') === 0) {
+            if (padlines[i].indexOf('###%20') === 0) {
                 padeditor.ace.replaceRange([i, 0], [i, 3], '' + calculateTime(timestamp));
                 console.log(i);
             }
