@@ -1,58 +1,45 @@
-//convert every second ###%20 to Timestamps
-javascript:(function () {
-    function insertTS() {
-        var padlines = padeditor.ace.exportText().split('\n'),
-            timestamp = Math.round(new Date().getTime() / 1000),
-            i = 0;
-        for (i = 0; i < padlines.length; i++) {
-            if (padlines[i].indexOf('###%20') === 0) {
-                padeditor.ace.replaceRange([i, 0], [i, 3], '' + timestamp);
-                console.log(i);
-            }
-        }
-        window.setTimeout(insertTS, 1000);
-    }
-    insertTS();
-})();
-
-//convert every second ###%20 to current time in HH:MM:SS format
+//convert ###%20 to current timestamp or to time in HH:MM:SS format if Starttime is provided
 javascript:(function () {
     var currentTime = new Date();
-    var startDMY = prompt('Enter your Start-Day', currentTime.getDate() + '.' + (currentTime.getMonth() + 1) + '.' + currentTime.getFullYear()).split('.');
-    var startHMS = prompt('Enter your Start-Time', currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds()).split(':');
-    var starttime = new Date(startDMY[2], (startDMY[1] - 1), startDMY[0], startHMS[0], startHMS[1], startHMS[2], 0);
-    var starttimestamp = Math.round(starttime.getTime() / 1000);
-
-    function calculateTime(now) {
+    
+    function calculateTime(now,starttimestamp) {
         var time = parseInt(now, 10) - parseInt(starttimestamp, 10),
             date, hours, minutes, seconds, returntime = '';
-
         console.log(time + ' ' + now + ' ' + starttimestamp);
-
         hours = Math.floor(time / 3600);
         minutes = Math.floor((time - (hours * 3600)) / 60);
         seconds = time - (hours * 3600) - (minutes * 60);
-
         returntime += (hours < 10) ? '0' + hours + ':' : hours + ':';
         returntime += (minutes < 10) ? '0' + minutes + ':' : minutes + ':';
         returntime += (seconds < 10) ? '0' + seconds : seconds;
-
         return returntime;
     }
-
-    function insertHMS(starttimestamp) {
+    
+    function insertHMS() {
         var padlines = padeditor.ace.exportText().split('\n'),
             timestamp = Math.round(new Date().getTime() / 1000),
-            i = 0;
+            timearray = [],
+            i = 0, starttimestamp;
+            
         for (i = 0; i < padlines.length; i++) {
+            if (padlines[i].indexOf('Starttime:') === 0) {
+                timearray[0] = padlines[i].replace('Starttime:','');
+                timearray[1] = timearray[0].split(' ')[0].split('.');
+                timearray[2] = timearray[0].split(' ')[1].split(':');
+                timearray[3] = new Date(timearray[1][2], (timearray[1][1] - 1), timearray[1][0], timearray[2][0], timearray[2][1], timearray[2][2], 0);
+                starttimestamp = Math.round(timearray[3].getTime() / 1000);
+            }
             if (padlines[i].indexOf('###%20') === 0) {
-                padeditor.ace.replaceRange([i, 0], [i, 3], '' + calculateTime(timestamp));
-                console.log(i);
+                if(typeof starttimestamp === 'number') {
+                    padeditor.ace.replaceRange([i, 0], [i, 3], '' + calculateTime(timestamp, starttimestamp));
+                } else {
+                    padeditor.ace.replaceRange([i, 0], [i, 3], '' + timestamp);
+                }
             }
         }
-        window.setTimeout(insertHMS, 750, starttimestamp);
+        window.setTimeout(insertHMS, 750);
     }
-    insertHMS(starttimestamp);
+    insertHMS();
 })();
 
 //change Timestamps to HH:MM:SS
